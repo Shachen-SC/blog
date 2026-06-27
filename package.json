@@ -1,0 +1,27 @@
+{
+  "name": "hexo-site",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "hexo generate",
+    "clean": "hexo clean",
+    "deploy": "hexo deploy",
+    "server": "hexo server"
+  },
+  "hexo": {
+    "version": "8.1.2"
+  },
+  "dependencies": {
+    "hexo": "file:hexo-8.1.2.tgz",
+    "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-archive": "file:hexo-generator-archive-2.0.0.tgz",
+    "hexo-generator-category": "file:hexo-generator-category-2.0.0.tgz",
+    "hexo-generator-index": "file:hexo-generator-index-4.0.0.tgz",
+    "hexo-generator-tag": "file:hexo-generator-tag-2.0.0.tgz",
+    "hexo-renderer-ejs": "file:hexo-renderer-ejs-2.0.0.tgz",
+    "hexo-renderer-marked": "file:hexo-renderer-marked-7.0.1.tgz",
+    "hexo-renderer-stylus": "file:hexo-renderer-stylus-3.0.1.tgz",
+    "hexo-server": "file:hexo-server-3.0.0.tgz",
+    "hexo-theme-landscape": "file:hexo-theme-landscape-1.1.0.tgz"
+  }
+}
