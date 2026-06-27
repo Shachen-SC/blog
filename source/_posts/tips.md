@@ -1,6 +1,6 @@
 ---
 title: 公告
-cover: /source/images/bg.jpeg
+cover: /images/bg.jpeg
 ---
 # 公告
 **最晚更新日期：2026-06-12**
