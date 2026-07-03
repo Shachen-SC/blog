@@ -1,4 +1,4 @@
 ---
 title: 关于
-date: 2026-06-27 09:47:34
+layout: about
 ---
