@@ -156,10 +156,14 @@ social:
   Mastodon:
     url: https://mastodon.social/@yourname
     icon: send
+    tooltip: Find me on Mastodon
   Zhihu:
     url: https://www.zhihu.com/people/yourname
+    tooltip: Zhihu profile
     svg: '<path d="M2 2 L22 22"/>'
 ```
+
+- `tooltip` customizes the hover/focus label. When omitted, the social key is used.
 
 > Note: the `svg` field is injected into the page **as raw markup** (it has to
 > be, to draw the icon). Only paste path data you trust.
@@ -191,8 +195,11 @@ home_hero:
   image:
     - /images/hero-1.jpg
     - /images/hero-2.jpg
+  mobile_image: true
   image_overlay: [0.2, 0.2]
+  cta_text: Start reading
   cta_link: "#flatpaper-home-content"
+  cta_background: 01
   hero_links:
     - name: Archives
       link: /archives/
@@ -216,14 +223,15 @@ home_hero:
 
 - Default is `enable: false`, so existing home pages are unchanged. It renders only on page 1 of the home pagination.
 - When `title`, `subtitle`, `bio`, `avatar`, or social links are omitted, the hero reuses the site title and `profile` config.
-- Leave `image` empty to use the built-in scrapbook paper background. Set it to a string for one fixed image, or to an array so the browser randomly picks one on each page load. Images fill the opening screen on wider viewports; narrow screens fall back to the paper background so stickers stay readable.
+- Leave `image` empty to use the built-in scrapbook paper background. Set it to a string for one fixed image, or to an array so the browser randomly picks one on each page load. Images fill the opening screen on wider viewports and narrow screens by default.
+- `mobile_image: false` makes narrow screens fall back to the paper background so stickers stay readable.
 - `image_overlay` controls the configurable dark overlay on image heroes. Use `[top, bottom]` opacity values from `0` to `1`; the default is `[0.2, 0.2]`.
 - `hero_links` adds quick navigation links between the hero bio and social links. When present, it replaces the default wavy divider. Each item needs `name` and `link`; `alt` is optional and is used for labels and external-link confirmation prompts. External links open in a new tab after a visit confirmation.
-- Social links in the hero reuse the profile `.socials` styling and follow the `buttons.style` option.
+- Social links in the hero reuse the profile `.socials` styling, tooltip text, and `buttons.style` option.
 - With `stickers.draggable: true`, the hero stickers get randomized and can be dragged around the page for the current view. Positions are not persisted.
 - `stickers.note_text` changes the text on the built-in note sticker.
 - `stickers.items` adds image stickers. The hero renders up to 5 custom stickers, plus the built-in note. `image` is required, while `link` is optional. `size` is optional and clamped to 48-180 pixels. Stickers with `link` show a visit confirmation bubble first and use `alt` in the prompt, such as "Visit GitHub?".
-- The bouncing bottom arrow scrolls into the home content. `cta_link` can point to another anchor and offsets for the sticky header. The hero does not auto-enter the home content based on scroll distance.
+- The bottom sticker CTA scrolls into the home content. `cta_text` changes the visible label; `cta_link` can point to another anchor and offsets for the sticky header. `cta_background` defaults to the neutral built-in `01`; set it to `01`-`09`, `random`, or a custom image path such as `/images/my-cta.webp`.
 
 ## Posts
 
@@ -281,18 +289,18 @@ Custom reaction buttons are useful for reward/donation QR codes. Image popovers 
 reactions:
   custom:
     - type: image
-      name: WeChat
-      icon: wechat
+      name: Weixin
+      icon: weixin
       align: right
-      image: /images/reward-wechat.jpg
-      title: WeChat reward
+      image: /images/reward-weixin.jpg
+      title: Weixin reward
 ```
 
 Fields:
 
 - `type`: currently `image`
 - `name`: button label
-- `icon`: built-in icon name, such as `gift`, `wechat`, `alipay`, `paypal`, `heart`
+- `icon`: built-in icon name, such as `gift`, `weixin`, `alipay`, `paypal`, `heart`
 - `align`: `left` or `right`
 - `image`: site path or absolute URL
 - `title`: optional popover title

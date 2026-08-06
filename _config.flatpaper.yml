@@ -373,3 +373,21 @@ inject:
     # - <script src="/js/xxx.js"></script>
   bottom:
     # - <script src="/js/xxx.js" defer></script>
+
+# ============================================================
+# Gitalk 评论系统配置
+# 使用前请先在 GitHub 创建 OAuth App:
+#   https://github.com/settings/developers
+#   Authorization callback URL 填你的博客域名
+# ============================================================
+gitalk:
+  clientID: 'Ov23li0WZmgUNGnVad9z'          # GitHub OAuth Client ID
+  clientSecret: '9e81919c2623f4641fe4fa80d90bb1bda60d419f'      # GitHub OAuth Client Secret
+  repo: 'gitalk-issues'              # 存放评论 Issue 的仓库名
+  owner: 'Shachen-SC'             # 仓库所有者 GitHub 用户名
+  admin: ['Shachen-SC']           # 管理员 GitHub 用户名列表
+  distractionFreeMode: false
+  language: 'zh-CN'     # 界面语言: zh-CN / en
+  cdn_css: https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.css
+  cdn_js: https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js
+  proxy: '/.netlify/functions/gitalk-token'   # 相对路径，自动绑定当前域名

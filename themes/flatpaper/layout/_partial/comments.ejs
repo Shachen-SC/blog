@@ -1,10 +1,4 @@
 <%
-// Comment section router. Renders the chosen comment system's mount point and
-// init script on posts / standalone pages, when:
-//   1. theme.comments is set to a supported value (twikoo | artalk),
-//   2. the system's required config (envId / server) is filled in,
-//   3. the page itself didn't opt out via front-matter `comments: false`.
-// The SDK <script>/<link> tags are loaded once globally by _partial/comments-sdk.ejs.
 var sys = theme.comments ? String(theme.comments).toLowerCase() : '';
 var pageTypeKey = String(page.type || '').toLowerCase();
 var isNotFoundPage = page.layout === '404' || pageTypeKey === '404';
@@ -13,10 +7,11 @@ var canRender = isContentPage && page.comments !== false;
 
 var tk = theme.twikoo || {};
 var ak = theme.artalk || {};
+var gt = theme.gitalk || {};
 var renderTwikoo = canRender && sys === 'twikoo' && tk.envId;
 var renderArtalk = canRender && sys === 'artalk' && ak.server;
-// JSON.stringify alone leaves "</script>" intact, which would terminate the
-// inline init script early if a page title/config value contains it.
+var renderGitalk = canRender && sys === 'gitalk' && gt.clientID && gt.repo && gt.owner;
+
 function jsonForScript(value) {
   return JSON.stringify(value).replace(/<\//g, '<\\/');
 }
@@ -31,10 +26,7 @@ function jsonForScript(value) {
 <script>
 window.addEventListener('load', function () {
   if (typeof twikoo === 'undefined') return;
-  twikoo.init({
-    envId: <%- jsonForScript(tk.envId) %>,
-    el: '#tcomment'
-  });
+  twikoo.init({ envId: <%- jsonForScript(tk.envId) %>, el: '#tcomment' });
 });
 </script>
 <% } else if (renderArtalk) { %>
@@ -54,6 +46,30 @@ window.addEventListener('load', function () {
     server: <%- jsonForScript(ak.server) %>,
     site: <%- jsonForScript(ak.site || '') %>
   });
+});
+</script>
+<% } else if (renderGitalk) { %>
+<section class="comments-section" aria-label="<%= flatpaper_i18n('common.comments') %>">
+  <header class="comments-section__head">
+    <h2><%- partial('_partial/icons', { icon: 'message-circle' }) %><%= flatpaper_i18n('common.comments') %></h2>
+  </header>
+  <div id="gitalk-container"></div>
+</section>
+<script>
+window.addEventListener('load', function () {
+  if (typeof Gitalk === 'undefined') return;
+  var gitalk = new Gitalk({
+    clientID: <%- jsonForScript(gt.clientID) %>,
+    clientSecret: <%- jsonForScript(gt.clientSecret || '') %>,
+    repo: <%- jsonForScript(gt.repo) %>,
+    owner: <%- jsonForScript(gt.owner) %>,
+    admin: <%- jsonForScript(gt.admin || []) %>,
+    id: location.pathname.substr(0, 50),
+    distractionFreeMode: <%= gt.distractionFreeMode !== false %>,
+    language: <%- jsonForScript(gt.language || 'zh-CN') %>,
+    proxy: <%- jsonForScript(gt.proxy || '') %>
+  });
+  gitalk.render('gitalk-container');
 });
 </script>
 <% } %>
