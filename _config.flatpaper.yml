@@ -323,7 +323,7 @@ adsense:
 
 # 评论系统选择： twikoo | artalk （留空 / 删除则不启用评论区）
 # 只在文章和独立页面（layout: page）渲染；单篇可在 front-matter 用 `comments: false` 关闭。
-comments:
+comments: gitalk
 
 # Twikoo（https://twikoo.js.org，需自行部署后端 https://twikoo.js.org/quick-start.html）
 twikoo:
